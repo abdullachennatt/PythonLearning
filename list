@@ -1,0 +1,499 @@
+Characteristics
+	• Ordered
+	• Mutable
+	• Duplicate values allowed
+	• Different data type elements allowed 
+
+ my_list = [] --> empty list 
+ my_list = [1,2,3]
+ my_list = ["hello","hi"]
+ my_list =[1,"hello"]
+
+ my_list = [1,2,3]
+ my_list[0] --> 1
+ my_list[-1] --> 3
+ 
+ my_list.append(5) --> [1,2,3,5]
+           my_new_list = my_list.append(10)
+	print(my_list) --> [1,2,3,5,10]
+	print(my_new_list)--> None 
+[note: The append() method in Python modifies the original list in place and does not return a new list. Instead, it returns None]
+
+ my_list.insert(3,4) --> [1,2,3,4,5]
+ my_list.insert(10) --> Type error insert expects two arguments
+ my_list.insert(7,10) --> [1,2,3,4,5,10]
+ [note: When you use the insert() method in Python, it inserts the specified value at the given index. If the index is greater than the length of the list, the value will simply be appended to the end of the list
+
+The insert() method in Python modifies the list in place and does not return a new list. Instead, it returns None
+]
+
+ my_other_list = [6,7,8,9]
+ my_list.extend(my_other_list) --> [1….9]
+ my_another_list = my_list + my_other_list
+	my_new_list = my_list + [100,101,102]
+	print(my_list)--> my_list
+	print(my_new_list)--> [my_list,100,101,102]
+	
+	
+
+• Use remove() when you know the specific value you want to remove.
+• Use pop() when you know the element's position (index) or need to remove the last element.
+• Use del for removing elements by index or slices, or to delete the list variable itself.
+• Use clear() when you need to empty the entire list but keep the list structure.
+• Use List Comprehension or filter() to create a new list based on certain conditions or if you need to filter out elements without modifying the original list in place. 
+
+Remove()
+	The remove() method deletes the first occurrence of a specified element from the list.
+	If you need to remove all occurrences of an element, you'll need to use a loop or list comprehension
+	
+	If the element is not found, remove() raises a ValueError
+	
+	
+	fruits = ["apple","banana","carrot"]
+	fruits.remove("carrot")
+	print(fruits) --> [apple,banana]
+	
+	
+	fruits.remove("orange") --> ValueError: list.remove(x): x not in list
+	
+	only_fruits = fruits.remove("carrot")
+	print(only_fruits) --> None 
+	
+	
+
+Pop()
+
+	• The pop() method removes an element from the list based on its index and also returns the removed element.
+	• If no index is provided, it removes and returns the last element of the list.
+	
+	fruits = ["apple","banana","carrot","orange"]
+	popped_fruit = fruits.pop(2)
+	print(popped_fruit) --> carrot
+	
+	
+	fruits = ["apple","banana","carrot","orange"]
+	popped_fruit = fruits.pop()
+	print(popped_fruit) --> orange 
+	
+	
+	fruits = ["apple","banana","carrot","orange"]
+	popped_fruit = fruits.pop(10) --> IndexError: pop index out of range
+	
+	
+	fruits = []
+	popped_fruit = fruits.pop() --> IndexError: pop from empty list
+	
+	
+
+Del
+
+	• The del keyword is a Python statement used to remove elements by their index.
+	• It can be used to:
+	• Remove a single element at a specified index.
+	• Remove a slice (range of elements) from the list.
+	• Delete the entire list itself.
+	Remove a single element at a specified index.
+	my_numbers = [1,2,3,4]
+	del my_numbers[2]
+	print(my_numbers) --> [1, 2, 4]
+	
+	deleted_num = del my_numbers[2] --> SyntaxError: invalid syntax
+	
+	Remove a slice (range of elements) from the list.
+	my_numbers = [1,2,3,4,5]
+	del my_numbers[1:3]
+	print(my_numbers) --> [1, 4, 5]
+	
+	
+	my_numbers = [1,2,3,4,5]
+	del my_numbers
+	print(my_numbers) --> NameError: name 'my_numbers' is not defined
+	
+	
+	
+Clear()
+	• The clear() method removes all elements from a list, making it empty.
+	• It does not delete the list itself, but rather clears its contents.
+	
+	my_numbers = [1,2,3,4,5]
+	my_numbers.clear()
+	print(my_numbers) --> []
+	
+	
+	my_numbers = [1,2,3,4,5]
+	my_empty_numbers = my_numbers.clear()
+	print(my_numbers) --> []
+	print(my_empty_numbers) --> None
+	[Note : the clear() method in Python does not return a value—it modifies the list in place by removing all its elements and returns None
+	]
+	
+
+Remove all occurrences of an element from list
+	1. Using a list comprehension
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	my_remove_all_1 = [x for x in my_numbers if x != 1]
+	print(my_remove_all_1) --> [2, 3, 4, 5]
+	
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	my_remove_all_1_even = [x for x in my_numbers if x!=1 if x %2 == 0]
+	print(my_remove_all_1_even) --> [2, 4]
+	
+	2. Using filter()
+	
+	The filter() function can also be used to filter elements based on a condition, creating a new iterable that can then be converted back to a list.
+	
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	my_remove_all_1 = list(filter(lambda x : x != 1 ,my_numbers))
+	print(my_remove_all_1) --> [2, 3, 4, 5]
+	
+	
+	
+	3. Using a while loop with remove()
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	element = 1
+	while element in my_numbers:
+	    print(element)
+	    my_numbers.remove(element)
+	print(my_numbers)
+	1
+	1
+	1
+	1
+	[2, 3, 4, 5]
+	
+	
+Check if an element exists in a list 
+	1. Using the in operator (most common and Pythonic)
+	
+		
+		my_numbers = [1,2,1,3,1,4,1,5]
+		if 3 in my_numbers:
+		    print("present")
+		
+		
+		my_numbers = [1,2,1,3,1,4,1,5]
+		if 6 not in my_numbers:
+		    print("absent")
+		
+	
+	2. Using the count() method
+	
+		my_numbers = [1,2,1,3,1,4,1,5]
+		if my_numbers.count(1) > 0 :
+		    print("present")
+		
+	
+	4. Using any() with a generator expression or list comprehension
+	
+	The any() function returns True if any element in the iterable is True. You can combine it with a generator expression or list comprehension to check for an element that satisfies a condition.
+	
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	element = 3
+	if any(x == element for x in my_numbers):
+	    print("present")
+	
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	element = 3
+	if any([ x == element for x in my_numbers]):
+	    print("present")
+	
+	
+	5. Using a set for faster lookups (if performing frequent checks)
+	
+	If you frequently need to check for the existence of elements, converting the list to a set can be more efficient, as membership tests with sets have an average time complexity of O(1) compared to O(n) for lists
+	
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	my_numbers_set = set(my_numbers)
+	if 2 in my_numbers_set:
+	    print("present")
+	
+	
+Sorting a list
+
+list.sort() can only be used with lists. sorted() can be used with any iterable (lists, tuples, strings, sets, etc.).
+
+	1. list.sort() method: This method sorts the list in-place, meaning it modifies the original list and does not return a new one.
+	my_numbers = [1,2,1,3,1,4,1,5]
+	my_numbers.sort()
+	print(my_numbers) --> [1, 1, 1, 1, 2, 3, 4, 5]
+	
+	
+	my_numbers = [1,2,1,3,1,4,1,5]
+	my_numbers.sort(reverse = True)
+	print(my_numbers) --> [5, 4, 3, 2, 1, 1, 1, 1]
+	
+	
+	my_list = ["name", 1 , "apple"]
+	my_list.sort() --> TypeError: '<' not supported between instances of 'int' and 'str'
+	print(my_list)
+	
+	Custom Sorting with key: The key parameter takes a function to generate a value for each element, and the sorting is based on those values.
+	
+	my_list = ["banana", "orange" , "apple"]
+	my_list.sort(key = len)
+	print(my_list) --> ['apple', 'banana', 'orange']
+	
+	def get_second_element(item):
+    return item[1]
+	list_of_tuples = [(1, 8), (2, 3), (10, 15)]
+list_of_tuples.sort(key=get_second_element)
+print(list_of_tuples)  # Output: [(2, 3), (1, 8), (10, 15)]
+
+	2. sorted() function: This built-in function takes an iterable (like a list, tuple, string, or set) as input and returns a new sorted list without altering the original iterable
+	
+	my_list = ["banana", "orange" , "apple"]
+	my_sorted_list = sorted(my_list)
+	print(my_sorted_list) --> ['apple', 'banana', 'orange']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	my_sorted_list = sorted(my_list, key = len)
+	print(my_sorted_list) --> ['kiwi', 'apple', 'banana', 'orange']
+	
+
+Reversing a list 
+
+	• Use list.reverse() when you need to reverse the list in-place and don't need the original order to be preserved.
+	• Use slicing [::-1] when you need a new reversed list and want to keep the original list unchanged.
+	• Use reversed() when memory efficiency is crucial, especially for large lists, and you might only need to iterate over the elements in reverse order without necessarily creating a new list. You can still convert it to a list if required.
+
+	1. Using the list.reverse() method (in-place modification)
+		Note : returns None
+		
+		my_list = ["banana", "orange" , "apple","kiwi"]
+		my_list.reverse()
+		print(my_list)
+		
+		
+	2. Using slicing [::-1] (creating a new reversed list) - Pythonic way to reverse lists.
+	
+		my_list = ["banana", "orange" , "apple","kiwi"]
+		my_rev_list = my_list[::-1]
+		print(my_rev_list)
+		
+	
+	3. Using the reversed() function (returns an iterator) 
+		Memory-efficient for large lists as it doesn't create a new list immediately
+		
+		my_list = ["banana", "orange" , "apple","kiwi"]
+		my_sorted_list = list(reversed(my_list))
+		print(my_sorted_list)
+		
+	
+	
+Slicing
+
+	list[start:stop:step]
+	
+	• start: The starting index of the slice (inclusive). If omitted, the slice begins from the start of the list (index 0).
+	• stop: The ending index of the slice (exclusive). The element at this index is not included. If omitted, the slice extends to the end of the list.
+	• step: The increment between indices in the slice (optional). If omitted, the default step is 1
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[:]) --> ['banana', 'orange', 'apple', 'kiwi']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[:2]) --> ['banana', 'orange']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[2:]) --> ['apple', 'kiwi']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[-1:]) --> ['kiwi']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[-1:-3:-1]) --> ['kiwi', 'apple']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[-1:-3]) --> []
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[:-2]) --> ['banana', 'orange']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[::2]) --> ['banana', 'apple']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[1::2]) --> ['orange', 'kiwi']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[::-3]) --> ['kiwi', 'banana']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[::-2]) --> ['kiwi', 'orange']
+	
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[-1:-3:-2]) --> ['kiwi']
+	
+	
+	my_list = ["a", "c", "d"]
+	my_list[1:1]
+	print(my_list[1:1]) --> []
+	
+	
+	Reverse a list : 
+	
+	my_list = ["banana", "orange" , "apple","kiwi"]
+	print(my_list[::-1])
+	
+	Modifying a list : 
+	colors = ["red", "green", "blue", "yellow"]
+	colors[1:3] = ["white", "black"] # Replaces elements at index 1 and 2
+	print(colors) # Output: ["red", "white", "black", "yellow"]
+	
+	
+	my_list = ["a", "b", "c", "d"]
+	my_list[1:3] = ["z","x"]
+	print(my_list) --> ['a', 'z', 'x', 'd']
+	
+	When new list has more elements
+	my_list = ["a", "b", "c", "d"]
+	my_list[1:3] = ["z","y","x"]
+	print(my_list) --> ['a', 'z', 'y', 'x', 'd']
+	
+	
+	
+	Inserting at index 
+	my_list = ["a", "c", "d"]
+	my_list[1:1] = ["b"] # Insert "b" at index 1
+	print(my_list) # Output: ['a', 'b', 'c', 'd']
+	
+	Deleting elements
+	
+	my_list = ["a", "b", "c", "d"]
+	my_list[1:3] = []
+	print(my_list) --> ['a', 'd']
+	
+	Using slice object 
+	s = slice(2, 7, 2) # Create a slice object: start=2, stop=7, step=2
+sliced_data = my_list[s]
+	
+	s_reversed = slice(None, None, -1) # Equivalent to [::-1]
+reversed_list = my_list[s_reversed]
+print(reversed_list) # Output:
+	
+	Reversing sublists
+	
+	my_list = ["a", "b", "c", "d", "e", "f", "g", "h"]
+	my_list[1:5] = my_list[4:0:-1]
+	print(my_list) --> ['a', 'e', 'd', 'c', 'b', 'f', 'g', 'h']
+	
+	Nested list slicing
+	nested_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+# Get the first element of the second sublist
+print(nested_list[1][0]) # Output: 4
+	# Get a submatrix (elements from the second and third sublists, second and third elements)
+submatrix = [row[1:3] for row in nested_list[1:3]]
+print(submatrix) # Output: [[5, 6], [8, 9]]
+	
+	Slicing with conditional expressions
+	
+	my_list = [1,2,3,4,5,6,7,8,9,10]
+	my_temp_list = [ x for x in my_list[2:7] if x % 2 == 0]
+	print(my_temp_list) --> [4, 6]
+	
+	
+	
+	Creating a shallow copy
+	
+	my_list = ["a", "c", "d"]
+	my_list_copy = my_list[:]
+	print(my_list_copy) --> ['a', 'c', 'd']
+	
+	
+	
+Comprehension
+
+	new_list = [expression for item in iterable if condition]
+	
+	• expression: The operation or transformation you want to apply to each item. This is what will be included in the new_list.
+	• item: A variable that represents each element from the iterable during the iteration.
+	• iterable: The source sequence or collection you're iterating over (e.g., a list, tuple, string, or range).
+	• if condition (optional): A filtering condition that determines whether an item should be included in the new_list. Only elements that satisfy the condition will be included. 
+	Creating a list from a range
+	
+	my_list = [i for i in range(10)]
+	print(my_list) --> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	
+	
+	my_list = [i*i for i in range(10)]
+	print(my_list) --> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+	
+	my_list = [i*i for i in range(10) if i % 2 == 1]
+	print(my_list) --> [1, 9, 25, 49, 81]
+	
+	
+	Nested list comprehension
+	When to Use Nested List Comprehensions:
+		○ Creating Multi-Dimensional Data Structures: Ideal for generating matrices or lists of lists with specific patterns.
+		○ Flattening Nested Lists: Provides a clean way to convert a list of lists into a single-dimensional list.
+		○ Transforming and Filtering Nested Data: Efficiently apply operations or conditions to elements within nested structures
+	
+		[expression for outer_item in outer_iterable for inner_item in inner_iterable]
+		
+		[[expression for inner_item in inner_iterable] for outer_item in outer_iterable]
+		
+		1. Creating a Matrix (List of Lists):
+		matrix = [[j for j in range(3)] for i in range(3)]
+# Output: [[0, 1, 2], [0, 1, 2], [0, 1, 2]]
+		
+		2. Flattening a Nested List
+		nested_list = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+		flattened_list = [item for sublist in nested_list for item in sublist]
+		# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+		
+		3. Filtering Elements in Nested Lists
+		data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+even_numbers = [num for sublist in data for num in sublist if num % 2 == 0]
+# Output: [2, 4, 6, 8]
+		
+		
+	
+	1. Creating a list of lambda functions 
+	Note : Use lambda when creating lists of functions: The most common and clear use case for combining lambda with list comprehension is when the elements of the list are the lambda functions themselves
+	This creates a list where each element is itself a lambda function. 
+	python
+	# Create a list of lambda functions, each multiplying its input by a different number
+multipliers = [lambda x, i=i: x * i for i in range(1, 5)]
+	# Now you can call these functions
+print(multipliers[0](10)) # Output: 10 (10 * 1)
+print(multipliers[1](10)) # Output: 20 (10 * 2)
+print(multipliers[3](5))  # Output: 20 (5 * 4)
+	
+	The Python code multipliers = [lambda x, i=i: x * i for i in range(1, 5)] creates a list of lambda functions. Each function multiplies its input x by a specific multiplier.
+	Here's a breakdown:
+	1. List Comprehension: The structure [... for i in range(1, 5)] is a list comprehension. It iterates through the numbers 1, 2, 3, and 4. For each i in this range, it creates an element for the multipliers list.
+	2. Lambda Function: lambda x, i=i: x * i defines a small, anonymous function.
+	• lambda: The keyword for defining a lambda function.
+	• x: This is the primary argument the lambda function takes when called (e.g., if you call multipliers[0](5), x would be 5).
+	• i=i: This is important for correct behavior with closures. By assigning i as a default argument to i in the lambda function's definition, you capture the current value of i from the loop at the time each lambda is defined. This creates a separate i variable within each lambda's scope, with its value fixed at the time the lambda is created.
+	• x * i: This is the single expression the lambda function evaluates and returns, multiplying the input x by the captured i value. 
+	In essence, this code creates the multipliers list containing these four lambda functions:
+	• lambda x: x * 1
+	• lambda x: x * 2
+	• lambda x: x * 3
+	• lambda x: x * 4
+	Why i=i is important (the "closure trick"):
+	Without i=i, if the code was simply lambda x: x * i, all lambda functions in the multipliers list would "late bind" to the variable i. This means when any of those functions are called, they would look up the current value of i. Since i would have completed its loop and its final value would be 4 (from range(1, 5)), all functions would incorrectly multiply by 4, leading to unexpected results (e.g., multipliers[0](5) would yield 20 instead of 5). By using i=i, each i is bound as a default argument, effectively "freezing" its value for each respective lambda at creation time
+	
+	
+	
+	
