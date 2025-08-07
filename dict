@@ -1,0 +1,254 @@
+	• Key and associated value pairs
+	• From Python 3.7+ Dictionaries are ordered 
+	• Prior to Python 3.7 (specifically in 3.5 and earlier), dictionaries were considered unordered. If you needed to maintain order in older versions, you would have used collections.OrderedDict
+	• Mutable
+	• Keys should be unique and immutable type like string number tuple
+
+ my_dict = {} --> empty dictionary
+ my_dict = {"name":"Abdulla","rank":23,"age":40} --> common way
+ my_dict = {
+	"name":"Abdulla"
+	"age":40
+
+}
+ dict()
+ my_dict = dict(name = "Abdulla", age = 37) --> using dict() and keyword arguments
+ my_dict = dict([("item1", 1), ("item2", 2)]) --> using dict() and an iterable of key-value pairs
+ [note: list of tuples used above]
+
+ dict.fromkeys()
+ keys=["apple","banana"]
+ my_dict = dict.fromkeys(keys,0) -- > 0 is the default value
+
+ keys = ["a","b"]
+ default_list = []
+ my_dict = dict.fromkeys(keys,default_list)
+ my_dict["a"].append("hello") --> appends hello to default_list
+ print(my_dict) --> a:hello,b:hello
+ [note: When you use dict.fromkeys(keys, default_list), all keys share the same reference to the mutable object (default_list). Modifying the list for one key (e.g., appending 'value A' to my_dict_mutable['item1']) affects all keys because they point to the same list.]
+
+ keys = ["a","b"]
+ my_dict = {k:[] for k in keys}
+ my_dict["a"].append("hello")
+ print(my_dict) --> a:[hello],b:[]
+
+
+ my_dict["name"] --> Abdulla
+ my_dict["sex"] --> keyError
+
+ dict.get()
+ my_dict.get("sex","Not Specified") --> Not Specified
+ [note: get() method we can specify a default value if key not found ]
+
+ my_dict["sex"] = "M" --> adds sex at end 
+ my_dict["age"] = 38 --> updates the age to 38 from 40 
+
+ del
+ del my_dict["sex"] --> removes a key value pair
+
+ pop()
+ my_dict.pop("age") --> removes age and returns value 
+ my_dict.pop("country") --> gives key error 
+ my_dict.pop("country","not found") --> not found
+ [note: pop requires a key as argument]
+ my_dict.pop() -->TypeError because the pop() method in Python requires at least one argument
+
+  popitem()
+[note:Removes and returns the last inserted key-value pair as a tuple (starting with Python 3.7)]
+ last_item = my_dict.popitem() --> returns last item as a tuple 
+
+ my_dict = {} 
+ my_dict.popitem() --> raises keyError
+ 
+ update()
+ country_capitals = {"india":"Delhi","America":"washington"}
+ additional_capitals = {"mexico":"mexico","japan":"tokyo"}
+ country_capitals.update(additional_capitals)
+
+ keys() --> returns all keys 
+ values() --> returns all values
+ items() --> list of key value pair as tuples
+ clear() --> removes all items from a dictionary
+
+ for country in country_capitals: --> iterates through keys
+ for country in country_capitals.keys() --> iterates through keys
+ for capital in country_capitals.values() --> iterates through values 
+ for country,capital in country_capitals.items() --> iterates through key and value
+
+ 
+ zip() - create a dictionary from two separate lists 
+ key_list = ["name","age","sex"]
+ values_list = ["abdulla,23,"m"]
+ my_dict = dict(zip(key_list,values_list))
+ [note: built-in zip() function, which pairs corresponding elements from the two lists into tuples]
+
+ zip() and comprehension
+ my_dict = {k:v for k,v in zip(key_list,values_list)}
+
+ [Note: note that when using zip(), if the two lists have different lengths, it will truncate the longer list to match the length of the shorter list. Any remaining elements in the longer list will be ignored]
+ 
+ comprehension
+ squares = { x : x*x for x in range(5)} --> {0:0,1:1,2:4,3:9,4:16}
+
+ comprehension with conditional logic
+	 Filtering a list 
+	  numbers = [1,2,3]
+	  even_dict = {x : x*x for x in numbers if x % 2 == 0 }
+	
+	Filtering an existing dictionary
+	 my_dict = {"one":1,"two":2,"three":3}
+	 my_even_dict = {k : v for k,v in my_dict.items() if v % 2 == 0 }
+	
+	Using if-else for transforming values 
+	 my_list = [1,2,3,4,5]
+	 odd_even_dict = {k: "odd" if v % 2 == 1 else "even" for k in my_list}
+	
+	Multiple if conditions
+	 my_dict = {"abdulla":38,"sam":52,"anton":30,"kaushik":40}
+	 my_filtered_dict = {k : v for k,v in my_dict.items() if v % 2 == 0 if v >= 40}
+	
+	Nested conditional logic
+	 fruits_dict = {"apple":120,"orange":80,"banana":60,"grape":130}
+	 discounted_dict = {
+		 fruit: price * .80 if price > 100 else price 
+		 for fruit,price in fruits_dict.items()
+	
+	 }
+
+Letter count from word
+	Using for loop and dict.get()
+	 word = "banana"
+	 letter_counts = {}
+	 for letter in word:
+	     letter_counts[letter] = letter_counts.get(letter,0) + 1
+	
+	Using collections.counter
+	 from collections import Counter
+	 word = "banana"
+	 count_dict = Counter(word)
+	 
+	Using comprehension and using str.count() method
+	 word = "banana"
+	 count_dict = {letter : word.count(letter) for letter in word}
+	 [note :  less efficient for very long strings because the str.count() method will iterate through the entire     string for each unique character]
+	
+	Using setdefault()
+	 word = "banana"
+	 letter_counts = {}
+	 for letter in word:
+	     letter_counts.setdefault(letter,0)
+	     letter_counts[letter] += 1
+	
+	
+	
+Swapping keys and values 
+
+	 Using comprehension
+	 my_dict = {"a":1,"b":2}
+	 my_swapped_dict = {v:k for k,v in my_dict.items()}
+	
+		 what will happen if duplicate values in original dictionary ? 
+			 If there are duplicate values, the last key associated with a duplicate value will overwrite previous keys when   creating the new dictionary
+		
+			 my_dict = {"a":1,"b":2,"c":1}
+			 my_swapped_dict = {v : k for k , v in my_dict.items()}
+			 print(my_swapped_dict) --> {1:"c",2:"b"}  # 1:"a" will be overwritten by 1:"c"
+	  
+		How can we avoid the overwrite and store as 1:["a","c"]
+			Using "dict".setdefault()
+			 my_dict = {"a":1,"b":2,"c":1]
+			 my_swapped_dict = {}
+			 for k , v in my_dict.items():
+			     my_swapped_dict.setdefault(v,[]).append(k)
+			
+			Using collections.defaultdict
+			 from collections import defaultdict
+			 my_dict = 
+			 swapped_dict = defaultdict(list)
+			 for k , v in my_dict.items():
+			    sawpped_dict[v].append(k)
+		
+		
+	 Using zip()
+	 my_dict = {"a":1,"b":2}
+	 my_swapped_dict = dict(zip(my_dict.values(),my_dict.keys()))
+	 
+	 what will happen if values are duplicate ? 
+		my_dict = {"a":1,"b":2,"c":1}
+		my_swapped_dict = dict(zip(my_dict.values(),my_dict.keys()))
+	           ---> {1: 'c', 2: 'b'}
+	 How to correct ?
+		To correctly reverse the dictionary while handling duplicate values, you can group the keys that share the same value into a list
+		my_dict = {"a":1,"b":2,"c":1]
+		 my_swapped_dict = {}
+		 for k , v in my_dict.items():
+		     my_swapped_dict.setdefault(v,[]).append(k)
+		
+	Using for loop
+	 my_dict = {"a":1,"b":2}
+	 for k , v in my_dict.items() :
+	    my_swapped_dict[v] = k 
+	
+Reversing the order of key-value pairs
+
+	Using reversed() and dict.items() 
+		 my_dict = {"a":1,"b":2}
+		 my_reversed_dict = dict(reversed(my_dict.items()))
+		
+	Using a loop with reversed() on dict.keys()
+		 my_dict = {"a":1,"b":2}
+		 reversed_dict = {}
+		 for key in reversed(my_dict.keys()):
+		     reversed_dict[key] = my_dict[key]
+		
+	Using comprehension with reversed()
+		my_dict = {"a":1,"b":2}
+		reversed_dict = {k : v for k,v in reversed(my_dict.items())}
+		# reversed_dict = {k : my_dict[k] for k,v in reversed(my_dict)}
+		
+		Note: reversed("dict") --> gives iterator object with keys reversed - only keys are returned
+	
+Sorting a Dictionary 
+
+Sorting by keys 
+	 my_dict = {"c":1,"b":2,"a":3}
+	 my_sorted_dict = dict(sorted(my_dict.items()))
+	 print(my_sorted_dict) --> {'a': 3, 'b': 2, 'c': 1}
+	
+	 my_dict = {"a":1,"z":2,"v":3}
+	 my_sorted_dict = dict(sorted(my_dict.items(), reverse = True))
+	 print(my_sorted_dict) --> {'z': 2, 'v': 3, 'a': 1}
+	
+Sorting by values 
+	Using lambda as key for sorted()
+	 my_dict = {"banana": 3, "apple": 1, "orange": 2}
+	 my_sorted_dict = dict(sorted(my_dict.items(), key = lambda item:item[1]))
+	 print(my_sorted_dict) --> {'apple': 1, 'orange': 2, 'banana': 3}
+	
+	Using operator.itemgetter()
+	[note: pass the index of the item you want to sort by (1 for values) to itemgetter()]
+	Import operator
+	 my_dict = {"banana": 3, "apple": 1, "orange": 2}
+	 my_sorted_dict = dict(sorted(my_dict.items(), key = operator.itemgetter(1)))
+	 print(my_sorted_dict) --> {'apple': 1, 'orange': 2, 'banana': 3}
+
+Sorting my multiple criteria 
+	You can sort by multiple criteria by providing a tuple as the sorting key in your lambda function or itemgetter() call. The sorting will occur based on the elements of the tuple, in order of their appearance in the tuple
+	
+	people = {
+    'Alice': {'age': 30, 'score': 90},
+    'Bob': {'age': 25, 'score': 95},
+    'Charlie': {'age': 30, 'score': 85}
+}
+	sorted_people = dict(sorted(people.items(), key=lambda item: (item[1]['age'], -item[1]['score'])))
+	print(sorted_people)
+	
+	
+	
+Common Use Cases
+	• Storing config settings
+	• Caching expensive results ?
+	• Counting word frequencies
+	• User profiles in web applications
+	• Lookup tables for efficient data retrieval
+	• JSON serialization and deserialization 
