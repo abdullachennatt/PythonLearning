@@ -1,0 +1,111 @@
+	• Ordered
+	• Immutable
+
+• You cannot change the values of individual elements within a tuple after it's created.
+• You cannot add or remove elements from a tuple.
+• If you attempt to modify a tuple, you will encounter a TypeError
+• Function returns: Tuples are frequently used to return multiple values from a function
+• Dictionary keys: Tuples, due to their immutability, can be used as keys in dictionaries, unlike lists.
+
+ my_tuple = () --> empty tuple
+ my_tuple = ("abd",1,2,"hello")
+
+ my_typle = ("hello",) --> SINGLE element tuple 
+ Note: comma needed at end 
+
+ name,age,city = "abdulla",38,"calicut 
+ will create a tuple ("abdulla",38,"calicut )
+
+List to tuple 
+	 my_list = ["hello",1,2,True]
+	 my_tuple = tuple(my_list)
+	
+ my_tuple = ("hello","hi",1,2,3,True)
+ my_tuple[0] --> hello
+ my_typle[-1] --> True 
+
+ Slicing
+ my_tuple[0:3:1] --> (hello,hi,1)
+
+Packing and Unpacking 
+
+When you assign multiple comma-separated values to a single variable, Python automatically groups them into a tuple. This is called tuple packing
+
+ my_data = "Alice", 30, "Software Engineer" automatically creates the tuple ("Alice", 30, "Software Engineer") which is then assigned to my_data
+
+Tuple unpacking is the reverse of packing: it extracts elements from a tuple (or any other iterable) and assigns them to individual variables in a single line.
+Note:The number of variables on the left-hand side of the assignment must match the number of elements in the tuple on the right, or a ValueError will be raised.
+name, age, profession = my_data will assign my_data[0] to name, my_data[1] to age, and my_data[2] to profession
+	• The asterisk (*) operator in tuple unpacking
+		• You can use the asterisk * operator in unpacking to collect multiple values into a list when the exact number of elements in the tuple is unknown or when you need to capture remaining elements.
+		first, *middle, last = my_numbers where my_numbers = (1, 2, 3, 4, 5) will assign 1 to first, 5 to last, and [2, 3, 4] to middle
+	• Real-world use cases
+		• Returning multiple values from a function
+		def calculate_stats(numbers):
+    min_val = min(numbers)
+    max_val = max(numbers)
+    avg_val = sum(numbers) / len(numbers)
+    return min_val, max_val, avg_val  # Returns a tuple
+		numbers = [10, 20, 30, 40, 50]
+minimum, maximum, average = calculate_stats(numbers) # Unpacking
+print(f"Min: {minimum}, Max: {maximum}, Avg: {average}") #
+		
+		• Swapping variable values
+		a, b = b, a swaps the values of a and b. The right-hand side first creates the tuple (b, a), and then the left-hand side unpacks it, assigning the values to a and b respectively
+		• Iterating over sequences of tuples
+		students = [("Alice", 25, "Math"), ("Bob", 22, "Physics"), ("Charlie", 28, "Chemistry")]
+		for name, age, major in students:  # Unpacking in a loop
+    print(f"{name} is {age} years old and majors in {major}.")
+		
+		• Argument unpacking in function calls: The * operator can be used to unpack a tuple into individual arguments when calling a function
+		def greet(name, age):
+    print(f"Hello, {name}! You are {age} years old.")
+		user_info = ("David", 35)
+greet(*user_info) # Unpacks user_info into name and age arguments
+		
+	• Builtin Methods
+		• Count 
+			Returns the number of times a specified value appears in the tuple
+			my_tuple = (1, 2, 2, 3, 2, 4) then my_tuple.count(2) returns 3
+		• Index
+			Returns the index of the first occurrence of a specified value. If the value is not found, it raises a ValueError
+			fruits = ("apple", "banana", "cherry") then fruits.index("banana") returns 1
+		• len(): Returns the number of items in a tuple.
+		• max(): Returns the largest item in the tuple (works with numerical or alphabetically comparable elements).
+		• min(): Returns the smallest item in the tuple (works with numerical or alphabetically comparable elements).
+		• sum(): Returns the sum of all items in the tuple (items must be numbers).
+		• sorted(): Returns a new sorted list of the tuple's elements.
+		• tuple(): Converts an iterable (e.g., list, string) into a tuple.
+		• Concatenation (+): Combines two tuples to form a new tuple.
+		• Example: t1 = (1, 2) and t2 = (3, 4) then t = t1 + t2 results in (1, 2, 3, 4).
+		• Repetition (*): Repeats the elements of a tuple a specified number of times.
+		• Example: t = (1, 2) then t_repeated = t * 3 results in (1, 2, 1, 2, 1, 2).
+		• Membership Testing (in, not in): Checks if an element exists within the tuple. 
+Tuple comparisons
+Tuples in Python can be compared using various comparison operators (==, !=, <, <=, >, >=). 
+	• Comparison is performed lexicographically, meaning Python compares tuples element by element, from left to right.
+	• If the first elements differ, the result is determined based on that comparison, and further elements are not considered.
+	• If elements are equal, the comparison moves to the next pair of elements.
+	• If all corresponding elements are equal, the comparison is based on the lengths of the tuples, with shorter tuples considered less than longer ones
+		
+	t1 = (1, 2, 3)
+t2 = (1, 2, 4)
+print(t1 < t2) # Output: True (because 3 < 4)
+t3 = (1, 2, 3)
+t4 = (1, 2)
+print(t3 > t4) # Output: True (because t3 is longer)
+	
+	
+	my_tuple_1 = (1,2)
+	my_tuple_2 = (1,2,"hello")
+	print(my_tuple_1 < my_tuple_2) --> True 
+	
+	
+	my_tuple_1 = (1,2,3)
+	my_tuple_2 = (1,2,"hello")
+	print(my_tuple_1 < my_tuple_2) --> TypeError: '<' not supported between instances of 'int' and 'str'
+	
+	
+
+
+
