@@ -1,0 +1,112 @@
+Unordered collection of unique, hash-able elements
+
+		○ Uniqueness: A set cannot contain duplicate elements; attempting to add a duplicate is ignored.
+		○ Unordered: Set elements do not have a defined order and cannot be accessed using indexing.
+		○ Mutable: Elements can be added or removed from a set after creation.
+		○ Hash-able Elements: Elements must be immutable (like numbers, strings, or tuples). Mutable elements such as lists or dictionaries cannot be directly included as they are un-hash-able
+	
+	 my_set = {1,2,3,"hello"} 
+	
+	 my_set = {} --> creates a dictionary not a set 
+	
+	 empty_set = set()
+	 
+	my_list = [1, 2, 2, 3]
+	unique_elements = set(my_list) # Output: {1, 2, 3}
+
+	• Union (| or union()): Combines unique elements from both sets
+	set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+union_set = set1 | set2 # Output: {1, 2, 3, 4, 5}
+	
+	• Intersection (& or intersection()): Returns elements common to both sets.
+	set1 = {1, 2, 3, 4, 5, 6}
+set2 = {4, 5, 6, 7, 8, 9}
+intersection_set = set1 & set2 # Output: {4, 5, 6}
+	
+	• Difference (- or difference()): Returns elements in the first set but not the second
+	set1 = {1, 2, 3, 4, 5, 6}
+set2 = {4, 5, 6, 7, 8, 9}
+difference_set = set1 - set2 # Output: {1, 2, 3}
+	
+	• Symmetric Difference (^ or symmetric_difference()): Returns elements in either set but not both.
+	set1 = {1, 2, 3, 4, 5, 6}
+set2 = {4, 5, 6, 7, 8, 9}
+symmetric_difference_set = set1 ^ set2 # Output: {1, 2, 3, 7, 8, 9}
+
+add() method
+	Adds a single element to the set if it's not already present.
+	modifies the set in-place
+	doesn't return any value
+	
+		my_set = {1, 2, 3}
+my_set.add(4)
+print(my_set) # Output: {1, 2, 3, 4}
+	
+remove() method
+	Removes a specific element from the set
+	If the element is not present in the set, a KeyError is raised.
+modifies the set in-place
+doesn't return any value
+		my_set = {1, 2, 3, 4}
+my_set.remove(3)
+print(my_set) # Output: {1, 2, 4}
+
+discard() method
+	Removes a specific element from the set if it is present.
+	If the element is not present in the set, no error is raised, and the set remains unchanged.
+	modifies the set in-place
+doesn't return any value
+		my_set = {1, 2, 3, 4}
+my_set.discard(3)
+print(my_set) # Output: {1, 2, 4}
+	
+Key Difference between remove() and discard(): The crucial distinction lies in error handling. remove() raises an error if the element isn't found, while discard() handles it gracefully without an error. Choose discard() when you are unsure if an element is present and prefer to avoid a program crash in its absence.
+pop() method
+	Removes and returns an arbitrary element from the set.
+	If the set is empty, a KeyError is raised.
+	modifies the set in-place
+		my_set = {1, 2, 3, 4}
+removed_item = my_set.pop() # Removes a random element
+print("Removed item:", removed_item)
+print("Updated set:", my_set)
+		# Empty set
+empty_set = set()
+# empty_set.pop() # This would raise a KeyError
+
+clear() method
+	Removes all elements from the set, making it empty.
+	The set object itself still exists, it just contains no elements.
+	modifies the set in-place
+	Returns nothing
+		my_set = {1, 2, 3, 4}
+my_set.clear()
+print(my_set) # Output: set()
+
+Use Cases
+	Data cleansing and removing duplicates
+		One of the most common and useful applications of sets is to eliminate duplicate values from a collection of data
+	 Fast membership testing
+		Sets are optimized for determining if a value exists within the collection. This capability is known as membership testing
+		membership tests in sets have an average time complexity of O(1), which is much faster than lists with O(n) complexity
+	Comparing data collections
+		Set operations like union, intersection, and difference are incredibly useful for comparing and manipulating groups of data based on shared elements or unique elements between them.
+	Text analysis and natural language processing (NLP)
+		○ Identifying unique words: Convert a text document into a set of words to get a list of all the unique words used in it.
+		○ Comparing vocabularies: Find common words or words unique to different documents or text corpora.
+		○ Finding missing words (difference): Identify words present in one document but absent in another
+	Network administration and security
+		○ Managing IP addresses: Identify available IP addresses from a pool by performing set difference operations. Detect overlaps using set intersection.
+		○ VLAN management: Find common VLAN IDs or unused IDs between configurations.
+		○ Device inventory: Identify common devices or missing ones by comparing device inventories using sets
+	Database operations
+		○ They can be used for tasks like filtering out duplicate entries or checking if an element exists in a collection.
+		○ Sets are used in various database operations such as performing joins
+		
+	
+	
+	
+	
+	
+	
+
